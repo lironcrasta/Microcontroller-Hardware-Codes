@@ -1,0 +1,80 @@
+C51 COMPILER V9.02   LCD_DISPLAY                                                           03/10/2025 10:15:13 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE LCD_DISPLAY
+OBJECT MODULE PLACED IN LCD_DISPLAY.OBJ
+COMPILER INVOKED BY: C:\KeilMC\C51\BIN\C51.EXE LCD_DISPLAY.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg51.h>
+   2          #define LCD_DATA P2
+   3          sbit rs=P3^7;
+   4          sbit rw=P3^6;
+   5          sbit en=P3^5;
+   6          void main()
+   7          {
+   8   1      void lcdcmd(unsigned char value); /* function call for command */
+   9   1      void lcddata (unsigned char value); /* function call for data */
+  10   1      void delay(unsigned int d); /* function call for delay */
+  11   1      lcdcmd(0x3C); /* Activate second line */
+  12   1      delay(250);
+  13   1      lcdcmd(0x0E); /* cursor blinking off ,display on
+  14   1      delay(250);
+  15   1      lcdcmd(0x06); /* increment cursor*/
+  16   1      delay(250);
+  17   1      lcdcmd(0x01); /*clear display*/
+  18   1      delay(250);
+  19   1      lcddata('N');
+  20   1      delay(250);
+  21   1      lcddata('M');
+  22   1      delay(250);
+  23   1      lcddata('A');
+  24   1      delay(250);
+  25   1      lcddata('M');
+  26   1      delay(250);
+  27   1      lcddata('I');
+  28   1      delay(250);
+  29   1      lcddata('T');
+  30   1      delay(250);
+  31   1      }
+  32          void lcdcmd(unsigned char value)
+  33          {
+  34   1      LCD_DATA=value;
+  35   1      rs=0;
+  36   1      rw=0;
+  37   1      en=1;
+  38   1      delay(1);
+  39   1      en=0;
+  40   1      }
+  41          void lcddata(unsigned char value)
+  42          {
+  43   1      LCD_DATA=value;
+  44   1      rs=1;
+  45   1      rw=0;
+  46   1      en=1;
+  47   1      delay(1);
+  48   1      en=0;
+  49   1      }
+  50          void delay(unsigned int d)
+  51          {
+  52   1      unsigned int i, j;
+  53   1      for(i=0;i<d;i++)
+  54   1      for(j=0;j<1275;j++);
+  55   1      }
+C51 COMPILER V9.02   LCD_DISPLAY                                                           03/10/2025 10:15:13 PAGE 2   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    148    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
